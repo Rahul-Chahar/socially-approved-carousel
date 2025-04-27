@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "Big Buck Bunny",
+    "description": "A short animated film featuring a big rabbit dealing with three bullies",
+    "url": "https://www.w3schools.com/html/mov_bbb.mp4",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Big_buck_bunny_poster_big.jpg",
+    "likes": 246,
+    "shares": 127,
+    "createdAt": "2023-01-15T10:30:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Elephants Dream",
+    "description": "An experimental animated film about two characters exploring a mechanical world",
+    "url": "https://www.w3schools.com/html/movie.mp4",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Elephants_Dream_poster.jpg",
+    "likes": 513,
+    "shares": 233,
+    "createdAt": "2023-02-05T14:20:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Nature's Beauty",
+    "description": "Breathtaking landscapes and wildlife footage",
+    "url": "https://www.w3schools.com/html/mov_bbb.mp4",
+    "thumbnail": "https://picsum.photos/id/10/400/300",
+    "likes": 178,
+    "shares": 96,
+    "createdAt": "2023-03-12T09:15:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Urban Exploration",
+    "description": "A journey through vibrant city streets and architecture",
+    "url": "https://www.w3schools.com/html/movie.mp4",
+    "thumbnail": "https://picsum.photos/id/20/400/300",
+    "likes": 823,
+    "shares": 342,
+    "createdAt": "2023-04-18T16:45:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Mountain Peaks",
+    "description": "Spectacular drone footage of mountain ranges",
+    "url": "https://www.w3schools.com/html/mov_bbb.mp4",
+    "thumbnail": "https://picsum.photos/id/30/400/300",
+    "likes": 315,
+    "shares": 153,
+    "createdAt": "2023-05-29T11:30:00Z"
+  },
+  {
+    "id": 6,
+    "title": "Ocean Wonders",
+    "description": "Diving into the depths of ocean wildlife",
+    "url": "https://www.w3schools.com/html/movie.mp4",
+    "thumbnail": "https://picsum.photos/id/40/400/300",
+    "likes": 642,
+    "shares": 278,
+    "createdAt": "2023-06-03T13:10:00Z"
+  },
+  {
+    "id": 7,
+    "title": "Desert Adventures",
+    "description": "Exploring vast desert landscapes",
+    "url": "https://www.w3schools.com/html/mov_bbb.mp4",
+    "thumbnail": "https://picsum.photos/id/50/400/300",
+    "likes": 415,
+    "shares": 189,
+    "createdAt": "2023-07-08T15:25:00Z"
+  },
+  {
+    "id": 8,
+    "title": "Forest Trails",
+    "description": "Walking through serene forest paths",
+    "url": "https://www.w3schools.com/html/movie.mp4",
+    "thumbnail": "https://picsum.photos/id/60/400/300",
+    "likes": 738,
+    "shares": 321,
+    "createdAt": "2023-08-14T10:40:00Z"
+  },
+  {
+    "id": 9,
+    "title": "Winter Wonderland",
+    "description": "Beautiful snowy landscapes and winter activities",
+    "url": "https://www.w3schools.com/html/mov_bbb.mp4",
+    "thumbnail": "https://picsum.photos/id/70/400/300",
+    "likes": 219,
+    "shares": 114,
+    "createdAt": "2023-09-22T12:55:00Z"
+  },
+  {
+    "id": 10,
+    "title": "Sunset Views",
+    "description": "Stunning sunset scenes from around the world",
+    "url": "https://www.w3schools.com/html/movie.mp4",
+    "thumbnail": "https://picsum.photos/id/80/400/300",
+    "likes": 548,
+    "shares": 256,
+    "createdAt": "2023-10-01T19:20:00Z"
+  }
+]
