@@ -5,13 +5,11 @@ import { EffectCoverflow, Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
-import axios from 'axios'; // Make sure to install axios: npm install axios
+import axios from 'axios'; 
 
 SwiperCore.use([EffectCoverflow]);
 
-// Backend API URL - change this to your server address
 const API_URL = 'http://localhost:5000';
-// Generate a simple user ID (in a real app, you'd use authentication)
 const USER_ID = `user_${Math.floor(Math.random() * 1000000)}`;
 
 export default function VideoCarousel() {
@@ -27,7 +25,6 @@ export default function VideoCarousel() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch videos from backend
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -44,7 +41,6 @@ export default function VideoCarousel() {
     fetchVideos();
   }, []);
 
-  // Adjust visible slides based on screen width
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -57,7 +53,7 @@ export default function VideoCarousel() {
       }
     };
 
-    handleResize(); // Initialize on mount
+    handleResize(); 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -117,13 +113,11 @@ export default function VideoCarousel() {
     const video = videos[activeIndex];
     
     try {
-      // Call the share API
       await axios.post(`${API_URL}/share`, {
         videoId: video.id,
-        platform: 'web' // You could dynamically set this based on where it's shared
+        platform: 'web' 
       });
       
-      // Copy the URL to clipboard
       await navigator.clipboard.writeText(video.url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -142,13 +136,11 @@ export default function VideoCarousel() {
         userId: USER_ID
       });
       
-      // Update local state based on server response
       setUserLikes(prev => ({
         ...prev,
         [activeIndex]: response.data.liked
       }));
       
-      // Update the likes count in the videos array
       setVideos(prev => 
         prev.map(v => 
           v.id === video.id ? { ...v, likes: response.data.likes } : v
