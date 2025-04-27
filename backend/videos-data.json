@@ -36,7 +36,7 @@
     "url": "https://www.w3schools.com/html/movie.mp4",
     "thumbnail": "https://picsum.photos/id/20/400/300",
     "likes": 823,
-    "shares": 342,
+    "shares": 341,
     "createdAt": "2023-04-18T16:45:00Z"
   },
   {
@@ -95,7 +95,7 @@
     "description": "Stunning sunset scenes from around the world",
     "url": "https://www.w3schools.com/html/movie.mp4",
     "thumbnail": "https://picsum.photos/id/80/400/300",
-    "likes": 548,
+    "likes": 547,
     "shares": 256,
     "createdAt": "2023-10-01T19:20:00Z"
   }

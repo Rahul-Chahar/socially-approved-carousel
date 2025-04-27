@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -8,11 +7,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Data storage - in a real app, you'd use a database
 let videosData = [
   { 
     id: 1, 
@@ -116,16 +113,12 @@ let videosData = [
   }
 ];
 
-// In-memory store of user likes to prevent duplicate likes
-// In a real app, you'd store this in a database
 const userLikes = {};
 
-// GET /videos - Return all videos with metadata
 app.get('/videos', (req, res) => {
   res.json(videosData);
 });
 
-// GET /videos/:id - Return a specific video by ID
 app.get('/videos/:id', (req, res) => {
   const videoId = parseInt(req.params.id);
   const video = videosData.find(v => v.id === videoId);
@@ -137,7 +130,6 @@ app.get('/videos/:id', (req, res) => {
   res.json(video);
 });
 
-// POST /like - Handle liking a video
 app.post('/like', (req, res) => {
   const { videoId, userId } = req.body;
   
@@ -151,23 +143,19 @@ app.post('/like', (req, res) => {
     return res.status(404).json({ message: 'Video not found' });
   }
   
-  // Check if this user has already liked this video
   const userLikeKey = `${userId}-${videoId}`;
   
   if (userLikes[userLikeKey]) {
-    // User already liked this video, so unlike it
     video.likes -= 1;
     delete userLikes[userLikeKey];
     return res.json({ liked: false, likes: video.likes });
   } else {
-    // User hasn't liked this video yet, so like it
     video.likes += 1;
     userLikes[userLikeKey] = true;
     return res.json({ liked: true, likes: video.likes });
   }
 });
 
-// POST /share - Track video shares
 app.post('/share', (req, res) => {
   const { videoId, platform } = req.body;
   
@@ -181,10 +169,8 @@ app.post('/share', (req, res) => {
     return res.status(404).json({ message: 'Video not found' });
   }
   
-  // Increment share count
   video.shares += 1;
   
-  // Log the share with platform info if provided
   console.log(`Video ${videoId} shared${platform ? ` on ${platform}` : ''}`);
   
   return res.json({ 
@@ -194,17 +180,14 @@ app.post('/share', (req, res) => {
   });
 });
 
-// Optional: Save data to a JSON file periodically
 function saveDataToFile() {
   const dataToSave = JSON.stringify(videosData, null, 2);
   fs.writeFileSync(path.join(__dirname, 'videos-data.json'), dataToSave);
   console.log('Data saved to file');
 }
 
-// Optionally save data every hour
 setInterval(saveDataToFile, 3600000);
 
-// Save data when the server is shutting down
 process.on('SIGINT', () => {
   saveDataToFile();
   process.exit();
