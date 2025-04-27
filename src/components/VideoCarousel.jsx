@@ -25,23 +25,65 @@ const videos = [
 export default function VideoCarousel() {
   const videoRefs = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
       if (index === activeIndex) {
         video.play().catch(() => {});
+        setIsPlaying(true);
       } else {
         video.pause();
       }
     });
   }, [activeIndex]);
 
+  const handlePlayPause = () => {
+    const video = videoRefs.current[activeIndex];
+    if (!video) return;
+
+    if (video.paused) {
+      video.play();
+      setIsPlaying(true);
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const handleMuteUnmute = () => {
+    const video = videoRefs.current[activeIndex];
+    if (!video) return;
+
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
+  };
+
+  const handleTimeUpdate = () => {
+    const video = videoRefs.current[activeIndex];
+    if (!video) return;
+
+    const progressPercentage = (video.currentTime / video.duration) * 100;
+    setProgress(progressPercentage || 0);
+  };
+
+  useEffect(() => {
+    const video = videoRefs.current[activeIndex];
+    if (!video) return;
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, [activeIndex]);
+
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center bg-gray-900 relative">
-      {/* Swiper Container */}
       <Swiper
-        modules={[EffectCoverflow, Navigation, Autoplay]} // Add new modules here
+        modules={[EffectCoverflow, Navigation, Autoplay]}
         slidesPerView={3}
         centeredSlides={true}
         loop={true}
@@ -53,8 +95,8 @@ export default function VideoCarousel() {
           prevEl: '.swiper-button-prev',
         }}
         autoplay={{
-          delay: 5000,  // 5 seconds auto-slide
-          disableOnInteraction: false, // User clicking buttons does not stop autoplay
+          delay: 5000,
+          disableOnInteraction: false,
         }}
         coverflowEffect={{
           rotate: 0,
@@ -68,7 +110,7 @@ export default function VideoCarousel() {
         {videos.map((video, index) => (
           <SwiperSlide key={video.id}>
             <div
-              className={`transition-all duration-300 ease-in-out transform overflow-hidden rounded-2xl shadow-lg ${
+              className={`relative transition-all duration-300 ease-in-out transform overflow-hidden rounded-2xl shadow-lg ${
                 index === activeIndex ? "scale-105 border-4 border-blue-400" : "scale-90 opacity-70"
               }`}
             >
@@ -79,6 +121,35 @@ export default function VideoCarousel() {
                 playsInline
                 className="w-full h-80 object-cover rounded-2xl"
               ></video>
+
+              {/* Controls */}
+              {index === activeIndex && (
+                <div className="absolute inset-0 flex flex-col justify-between p-4">
+                  {/* Top Right - Mute/Unmute */}
+                  <button
+                    onClick={handleMuteUnmute}
+                    className="self-end bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs"
+                  >
+                    {isMuted ? "Unmute" : "Mute"}
+                  </button>
+
+                  {/* Bottom - Play/Pause + Progress Bar */}
+                  <div className="flex flex-col items-center w-full">
+                    <button
+                      onClick={handlePlayPause}
+                      className="bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm mb-2"
+                    >
+                      {isPlaying ? "Pause" : "Play"}
+                    </button>
+                    <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                      <div
+                        className="bg-blue-400 h-2"
+                        style={{ width: `${progress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </SwiperSlide>
         ))}
